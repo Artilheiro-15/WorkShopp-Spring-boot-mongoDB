@@ -1,6 +1,7 @@
 package com.atillaJrWorkshopmongo.services;
 
 import com.atillaJrWorkshopmongo.domain.User;
+import com.atillaJrWorkshopmongo.dto.UserDTO;
 import com.atillaJrWorkshopmongo.repository.UserRepository;
 import com.atillaJrWorkshopmongo.services.exception.ObjectNotFoundException;
 import java.util.List;
@@ -23,5 +24,13 @@ public class UserService {
     return obj.orElseThrow(() ->
       new ObjectNotFoundException("Objeto não encontrado")
     );
+  }
+
+  public User insert(User obj) {
+    return repo.insert(obj);
+  }
+
+  public User fromDTO(UserDTO objDto) {
+    return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
   }
 }
