@@ -3,6 +3,7 @@ package com.atillaJrWorkshopmongo.services;
 import com.atillaJrWorkshopmongo.domain.Post;
 import com.atillaJrWorkshopmongo.repository.PostRepository;
 import com.atillaJrWorkshopmongo.services.exception.ObjectNotFoundException;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,5 +19,9 @@ public class PostService {
     return obj.orElseThrow(() ->
       new ObjectNotFoundException("Objeto não encontrado")
     );
+  }
+
+  public List<Post> findByTitle(String text) {
+    return repo.findByTitleContainingIgnoreCase(text);
   }
 }
