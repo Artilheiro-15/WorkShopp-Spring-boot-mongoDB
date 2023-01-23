@@ -19,7 +19,6 @@ public class UserService {
     return repo.findAll();
   }
 
-
   public User findById(String id) {
     Optional<User> obj = repo.findById(id);
     return obj.orElseThrow(() ->
@@ -27,12 +26,21 @@ public class UserService {
     );
   }
 
-  public void delete(String id){
+  public void delete(String id) {
     findById(id);
     repo.deleteById(id);
   }
 
+  public User update(User obj) {
+    Optional<User> newObj = repo.findById(obj.getId());
+    updateData(newObj.get(), obj);
+    return repo.save(newObj.get());
+  }
 
+  private void updateData(User newObj, User obj) {
+    newObj.setName(obj.getName());
+    newObj.setEmail(obj.getEmail());
+  }
 
   public User insert(User obj) {
     return repo.insert(obj);
