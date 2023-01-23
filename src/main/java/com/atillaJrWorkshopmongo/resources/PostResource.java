@@ -3,6 +3,7 @@ package com.atillaJrWorkshopmongo.resources;
 import com.atillaJrWorkshopmongo.domain.Post;
 import com.atillaJrWorkshopmongo.resources.util.URL;
 import com.atillaJrWorkshopmongo.services.PostService;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,20 @@ public class PostResource {
   ) {
     text = URL.decodeParam(text);
     List<Post> list = service.findByTitle(text);
+    return ResponseEntity.ok().body(list);
+  }
+
+  @RequestMapping(value = "/fullsearch", method = RequestMethod.GET)
+  public ResponseEntity<List<Post>> fullsearch(
+    @RequestParam(value = "text", defaultValue = "") String text,
+    @RequestParam(value = "minDate", defaultValue = "") String minDate,
+    @RequestParam(value = "maxDate", defaultValue = "") String maxDate
+  ) {
+    text = URL.decodeParam(text);
+    Date min = URL.convertDate(minDate, new Date(0L));
+    Date max = URL.convertDate(maxDate, new Date());
+
+    List<Post> list = service.fullSearch(text, min, max);
     return ResponseEntity.ok().body(list);
   }
 }
