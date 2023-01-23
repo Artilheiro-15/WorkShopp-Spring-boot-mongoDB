@@ -2,6 +2,7 @@ package com.atillaJrWorkshopmongo.config;
 
 import com.atillaJrWorkshopmongo.domain.Post;
 import com.atillaJrWorkshopmongo.domain.User;
+import com.atillaJrWorkshopmongo.dto.AuthorDTO;
 import com.atillaJrWorkshopmongo.repository.PostRepository;
 import com.atillaJrWorkshopmongo.repository.UserRepository;
 import java.text.SimpleDateFormat;
@@ -34,19 +35,21 @@ public class Instantiation implements CommandLineRunner {
     User alex = new User(null, "Alex Green", "alex@gmail.com");
     User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
+    userRepository.saveAll(Arrays.asList(Atilla, maria, alex));
+
     Post post1 = new Post(
       null,
       sdf.parse("21/03/2023"),
       "Partiu viagem",
       "Vou viajar para Sao Paulo. Abraços! ",
-      maria
+      new AuthorDTO(maria)
     );
     Post post2 = new Post(
       null,
       sdf.parse("23/03/2023"),
       "Bom Dia ",
       "Acordei feliz Hoje!",
-      maria
+      new AuthorDTO(maria)
     );
 
     //Com isso aqui eu salvo vo salvar os usuarios automaticamente la no banco de dados
