@@ -33,8 +33,9 @@ public class Instantiation implements CommandLineRunner {
     User Atilla = new User(null, "Atilla Brown", "Atilla@gmail.com");
     User maria = new User(null, "Maria Brown", "maria@gmail.com");
     User alex = new User(null, "Alex Green", "alex@gmail.com");
-    User bob = new User(null, "Bob Grey", "bob@gmail.com");
+    //  User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
+    //Com isso aqui eu vo salvar os usuarios automaticamente la no banco de dados
     userRepository.saveAll(Arrays.asList(Atilla, maria, alex));
 
     Post post1 = new Post(
@@ -52,8 +53,11 @@ public class Instantiation implements CommandLineRunner {
       new AuthorDTO(maria)
     );
 
-    //Com isso aqui eu salvo vo salvar os usuarios automaticamente la no banco de dados
-    userRepository.saveAll(Arrays.asList(Atilla, maria, alex));
+    //Com isso aqui eu vo salvar os usuarios automaticamente la no banco de dados
+
     postRepository.saveAll(Arrays.asList(post1, post2));
+
+    maria.getPots().addAll(Arrays.asList(post1, post2));
+    userRepository.save(maria);
   }
 }
