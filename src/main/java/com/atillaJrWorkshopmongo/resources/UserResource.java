@@ -3,12 +3,11 @@ package com.atillaJrWorkshopmongo.resources;
 import com.atillaJrWorkshopmongo.domain.User;
 import com.atillaJrWorkshopmongo.dto.UserDTO;
 import com.atillaJrWorkshopmongo.services.UserService;
-import jakarta.servlet.Servlet;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,4 +52,16 @@ public class UserResource {
       .toUri();
     return ResponseEntity.created(uri).build();
   }
+
+  @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+  public ResponseEntity<Void> delete(@PathVariable String id) {
+    // CrudRepository<User, String> service;
+    service.delete(id);
+    return ResponseEntity.noContent().build();
+  }
+  // @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+  // public ResponseEntity<Void> delete(@PathVariable String id) {
+  //  service.delete(id);
+  //   return ResponseEntity.ok().body(new UserDTO(obj));
+  // }
 }
